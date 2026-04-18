@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("login-form");
   const closeLoginModal = document.querySelector(".close-login-modal");
   const loginMessage = document.getElementById("login-message");
-  const themeSwitchButton = document.getElementById("theme-toggle");
+  const themeToggleButton = document.getElementById("theme-toggle");
 
   // Activity categories with corresponding colors
   const activityTypes = {
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Authentication state
   let currentUser = null;
-  const THEME_STORAGE_KEY = "siteTheme";
+  const THEME_STORAGE_KEY = "themePreference";
 
   // Time range mappings for the dropdown
   const timeRanges = {
@@ -169,13 +169,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateThemeToggleButton(theme) {
-    if (!themeSwitchButton) {
+    if (!themeToggleButton) {
       return;
     }
 
     const isDarkMode = theme === "dark";
-    const icon = themeSwitchButton.querySelector(".theme-icon");
-    const label = themeSwitchButton.querySelector(".theme-label");
+    const icon = themeToggleButton.querySelector(".theme-icon");
+    const label = themeToggleButton.querySelector(".theme-label");
 
     if (icon) {
       icon.textContent = isDarkMode ? "☀️" : "🌙";
@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
       label.textContent = isDarkMode ? "Light Mode" : "Dark Mode";
     }
 
-    themeSwitchButton.setAttribute(
+    themeToggleButton.setAttribute(
       "aria-pressed",
       isDarkMode ? "true" : "false"
     );
@@ -278,8 +278,8 @@ document.addEventListener("DOMContentLoaded", () => {
   loginButton.addEventListener("click", openLoginModal);
   logoutButton.addEventListener("click", logout);
   closeLoginModal.addEventListener("click", closeLoginModalHandler);
-  if (themeSwitchButton) {
-    themeSwitchButton.addEventListener("click", () => {
+  if (themeToggleButton) {
+    themeToggleButton.addEventListener("click", () => {
       const currentTheme =
         document.documentElement.getAttribute("data-theme") || "light";
       setTheme(currentTheme === "dark" ? "light" : "dark");
