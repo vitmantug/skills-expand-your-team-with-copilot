@@ -341,7 +341,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const textArea = document.createElement("textarea");
     textArea.value = text;
-    textArea.setAttribute("aria-hidden", "true");
     textArea.style.position = "fixed";
     textArea.style.left = "-9999px";
     document.body.appendChild(textArea);
@@ -675,7 +674,10 @@ document.addEventListener("DOMContentLoaded", () => {
             });
           } catch (error) {
             if (error.name !== "AbortError") {
-              showMessage("Could not open the share options.", "error");
+              showMessage(
+                "Unable to open the share menu. Please try Copy Link instead.",
+                "error"
+              );
             }
           }
         });
@@ -692,7 +694,10 @@ document.addEventListener("DOMContentLoaded", () => {
           );
           showMessage("Activity link copied. Share it with friends!", "success");
         } catch (error) {
-          showMessage("Could not copy the activity link.", "error");
+          showMessage(
+            "Could not copy the activity link. Please use WhatsApp or Email to share instead.",
+            "error"
+          );
         }
       });
     }
