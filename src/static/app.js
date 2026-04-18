@@ -335,8 +335,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // Copy helper with fallback support
   async function copyTextToClipboard(text) {
     if (navigator.clipboard && window.isSecureContext) {
-      await navigator.clipboard.writeText(text);
-      return;
+      try {
+        await navigator.clipboard.writeText(text);
+        return;
+      } catch (error) {
+        // Continue to fallback copy behavior below
+      }
     }
 
     const textArea = document.createElement("textarea");
@@ -348,7 +352,7 @@ document.addEventListener("DOMContentLoaded", () => {
     textArea.select();
     if (!document.execCommand("copy")) {
       textArea.remove();
-      throw new Error("Copy failed");
+      throw new Error("Copy failed. Please use another share option.");
     }
     textArea.remove();
   }
@@ -675,7 +679,7 @@ document.addEventListener("DOMContentLoaded", () => {
           } catch (error) {
             if (error.name !== "AbortError") {
               showMessage(
-                "Unable to open the share menu. Please try Copy Link instead.",
+                "Unable to open the share menu. Please try another sharing option.",
                 "error"
               );
             }
