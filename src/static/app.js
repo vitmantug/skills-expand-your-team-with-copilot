@@ -186,8 +186,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     themeToggleButton.setAttribute(
-      "aria-pressed",
-      isDarkMode ? "true" : "false"
+      "aria-label",
+      isDarkMode ? "Switch to light mode" : "Switch to dark mode"
     );
   }
 
