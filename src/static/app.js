@@ -324,6 +324,16 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
+  // Basic HTML attribute escaping for safe data-* output
+  function escapeHtmlAttribute(value) {
+    return value
+      .replaceAll("&", "&amp;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;");
+  }
+
   // Copy helper with fallback support
   async function copyTextToClipboard(text) {
     if (navigator.clipboard && window.isSecureContext) {
@@ -333,6 +343,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const textArea = document.createElement("textarea");
     textArea.value = text;
+    textArea.setAttribute("aria-hidden", "true");
     textArea.style.position = "fixed";
     textArea.style.left = "-9999px";
     document.body.appendChild(textArea);
@@ -595,9 +606,9 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="share-actions">
           <button
             class="share-button native-share-button"
-            data-share-title="${shareData.encodedTitle}"
-            data-share-text="${shareData.encodedText}"
-            data-share-url="${shareData.encodedUrl}"
+            data-share-title="${escapeHtmlAttribute(shareData.title)}"
+            data-share-text="${escapeHtmlAttribute(shareData.text)}"
+            data-share-url="${escapeHtmlAttribute(shareData.url)}"
             type="button"
           >
             Share
@@ -657,9 +668,9 @@ document.addEventListener("DOMContentLoaded", () => {
         nativeShareButton.addEventListener("click", async () => {
           try {
             await navigator.share({
-              title: decodeURIComponent(nativeShareButton.dataset.shareTitle),
-              text: decodeURIComponent(nativeShareButton.dataset.shareText),
-              url: decodeURIComponent(nativeShareButton.dataset.shareUrl),
+              title: nativeShareButton.dataset.shareTitle,
+              text: nativeShareButton.dataset.shareText,
+              url: nativeShareButton.dataset.shareUrl,
             });
           } catch (error) {
             if (error.name !== "AbortError") {
@@ -676,7 +687,7 @@ document.addEventListener("DOMContentLoaded", () => {
       copyShareButton.addEventListener("click", async () => {
         try {
           await copyTextToClipboard(
-            decodeURIComponent(copyShareButton.dataset.shareUrl)
+            copyShareButton.dataset.shareUrl
           );
           showMessage("Activity link copied. Share it with friends!", "success");
         } catch (error) {
