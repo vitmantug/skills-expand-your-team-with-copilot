@@ -278,9 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (themeToggleButton) {
     themeToggleButton.addEventListener("click", () => {
       const currentTheme =
-        document.documentElement.getAttribute("data-theme") === "dark"
-          ? "dark"
-          : "light";
+        document.documentElement.getAttribute("data-theme") || "light";
       setTheme(currentTheme === "dark" ? "light" : "dark");
     });
   }
