@@ -513,7 +513,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Format the schedule using the new helper function
     const formattedSchedule = formatSchedule(details);
-    const difficultyInfo = details.difficulty
+    const difficultyHtml = details.difficulty
       ? `<p><strong>Difficulty:</strong> ${details.difficulty}</p>`
       : "";
 
@@ -541,7 +541,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ${tagHtml}
       <h4>${name}</h4>
       <p>${details.description}</p>
-      ${difficultyInfo}
+      ${difficultyHtml}
       <p class="tooltip">
         <strong>Schedule:</strong> ${formattedSchedule}
         <span class="tooltip-text">Regular meetings at this time throughout the semester</span>
