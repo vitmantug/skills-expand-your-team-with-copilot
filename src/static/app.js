@@ -432,7 +432,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (details.difficulty) {
           return;
         }
-      } else if (details.difficulty !== currentDifficultyFilter) {
+      } else if (
+        !details.difficulty ||
+        details.difficulty.toLowerCase() !== currentDifficultyFilter
+      ) {
         return;
       }
 
