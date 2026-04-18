@@ -615,7 +615,7 @@ document.addEventListener("DOMContentLoaded", () => {
           </button>
           <button
             class="share-button copy-share-button"
-            data-share-url="${shareData.encodedUrl}"
+            data-share-url="${escapeHtmlAttribute(shareData.url)}"
             type="button"
           >
             Copy Link
