@@ -307,8 +307,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Build social share details for an activity
   function getShareData(activityName) {
     const shareUrl = new URL(window.location.href);
-    shareUrl.search = "";
-    shareUrl.hash = "";
     shareUrl.searchParams.set("activity", activityName);
 
     const shareTitle = `Mergington Activity: ${activityName}`;
@@ -349,7 +347,10 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(textArea);
     textArea.focus();
     textArea.select();
-    document.execCommand("copy");
+    if (!document.execCommand("copy")) {
+      textArea.remove();
+      throw new Error("Copy failed");
+    }
     textArea.remove();
   }
 
