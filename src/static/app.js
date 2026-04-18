@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("login-form");
   const closeLoginModal = document.querySelector(".close-login-modal");
   const loginMessage = document.getElementById("login-message");
-  const themeToggleButton = document.getElementById("theme-toggle");
+  const themeSwitchButton = document.getElementById("theme-toggle");
 
   // Activity categories with corresponding colors
   const activityTypes = {
@@ -169,13 +169,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateThemeToggleButton(theme) {
-    if (!themeToggleButton) {
+    if (!themeSwitchButton) {
       return;
     }
 
     const isDarkMode = theme === "dark";
-    const icon = themeToggleButton.querySelector(".theme-icon");
-    const label = themeToggleButton.querySelector(".theme-label");
+    const icon = themeSwitchButton.querySelector(".theme-icon");
+    const label = themeSwitchButton.querySelector(".theme-label");
 
     if (icon) {
       icon.textContent = isDarkMode ? "☀️" : "🌙";
@@ -185,7 +185,10 @@ document.addEventListener("DOMContentLoaded", () => {
       label.textContent = isDarkMode ? "Light Mode" : "Dark Mode";
     }
 
-    themeToggleButton.setAttribute("aria-pressed", isDarkMode.toString());
+    themeSwitchButton.setAttribute(
+      "aria-pressed",
+      isDarkMode ? "true" : "false"
+    );
   }
 
   function setTheme(theme) {
@@ -275,8 +278,8 @@ document.addEventListener("DOMContentLoaded", () => {
   loginButton.addEventListener("click", openLoginModal);
   logoutButton.addEventListener("click", logout);
   closeLoginModal.addEventListener("click", closeLoginModalHandler);
-  if (themeToggleButton) {
-    themeToggleButton.addEventListener("click", () => {
+  if (themeSwitchButton) {
+    themeSwitchButton.addEventListener("click", () => {
       const currentTheme =
         document.documentElement.getAttribute("data-theme") || "light";
       setTheme(currentTheme === "dark" ? "light" : "dark");
